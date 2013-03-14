@@ -11,7 +11,22 @@ homepage:      http://github.com/bgamari/optimization
 bug-reports:   http://github.com/ekmett/optimization/issues
 copyright:     Copyright (C) 2013 Ben Gamari
 synopsis:      Numerical optimization
-description:   foo
+description:
+  These are a set of implementations of various numerical optimization
+  methods in Haskell. Note that these implementations were originally
+  written as part of a class project; while at one point they worked
+  no attention has been given to numerical stability or the many other
+  potential difficulties of implementing robust numerical
+  methods. That being said, they should serve to succinctly illustrate
+  a number of optimization techniques from the modern optimization
+  literature.
+
+  Those seeking a high-level overview of some of these methods are
+  referred to Stephen Wright's excellent tutorial from NIPS 2010
+  <http://videolectures.net/nips2010_wright_oaml/>. A deeper
+  introduction can be found in Boyd and Vandenberghe's *Complex
+  Optimization* which available freely online.
+
 build-type:    Custom
 
 extra-source-files:
