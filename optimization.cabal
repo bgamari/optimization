@@ -34,7 +34,20 @@ library
   default-language: Haskell2010
   ghc-options: -Wall
   build-depends:
-    base >= 4.4 && < 5
+    base                >= 4.4          && < 5,
+    linear              >= 1.0          && < 2.0,
+    semigroupoids       >= 3.0          && < 4.0,
+    distributive        >= 0.3          && < 0.4
+
+  exposed-modules:
+    Optimization.LineSearch
+    Optimization.LineSearch.ConjugateGradient
+    Optimization.LineSearch.BarzilaiBorwein
+    Optimization.LineSearch.SteepestDescent
+    Optimization.TrustRegion.Nesterov1983
+    Optimization.TrustRegion.Fista
+    Optimization.TrustRegion.Newton
+
 
 test-suite doctests
   type:    exitcode-stdio-1.0
