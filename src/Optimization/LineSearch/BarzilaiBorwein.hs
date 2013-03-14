@@ -6,8 +6,8 @@ import Linear
 
 -- | Barzilai-Borwein 1988 is a non-monotonic optimization method
 barzilaiBorwein :: (Additive f, Metric f, Functor f, Fractional a)
-                => (f a -> a) -> (f a -> f a) -> f a -> f a -> [f a]
-barzilaiBorwein f df x0 x1 = go (x0, x1)
+                => (f a -> f a) -> f a -> f a -> [f a]
+barzilaiBorwein df x0 x1 = go (x0, x1)
   where go (x0,x1) = let s = x1 ^-^ x0
                          z = df x1 ^-^ df x0
                          alpha = (s `dot` z) / (z `dot` z)
