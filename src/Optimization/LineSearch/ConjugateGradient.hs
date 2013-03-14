@@ -31,12 +31,12 @@ conjGrad search beta f df x0 = go (negated $ df x0) x0
 -- | Fletcher-Reeves expression for beta
 {-# INLINEABLE fletcherReeves #-}
 fletcherReeves :: (Num a, RealFloat a, Metric f) => Beta f a
-fletcherReeves df0 df1 p0 = norm df1 / norm df0
+fletcherReeves df0 df1 _ = norm df1 / norm df0
 
 -- | Polak-Ribiere expression for beta
 {-# INLINEABLE polakRibiere #-}
 polakRibiere :: (Num a, RealFloat a, Metric f) => Beta f a
-polakRibiere df0 df1 p0 = df1 `dot` (df1 ^-^ df0) / norm df0
+polakRibiere df0 df1 _ = df1 `dot` (df1 ^-^ df0) / norm df0
 
 -- | Hestenes-Stiefel expression for beta
 {-# INLINEABLE hestenesStiefel #-}
