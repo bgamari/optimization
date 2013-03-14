@@ -20,7 +20,7 @@ description:
   methods. That being said, they should serve to succinctly illustrate
   a number of optimization techniques from the modern optimization
   literature.
-
+  .
   Those seeking a high-level overview of some of these methods are
   referred to Stephen Wright's excellent tutorial from NIPS 2010
   <http://videolectures.net/nips2010_wright_oaml/>. A deeper

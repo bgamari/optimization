@@ -5,7 +5,8 @@ module Optimization.TrustRegion.Fista
 
 import Linear
 
--- | FISTA with constant stepsize
+-- | Fast Iterative Shrinkage-Thresholding Algorithm (FISTA) with
+-- constant stepsize
 {-# INLINEABLE fista #-}
 fista :: (Additive f, Fractional a, Floating a)
       => a -> (f a -> a) -> (f a -> f a) -> f a -> [f a]
