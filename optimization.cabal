@@ -8,7 +8,7 @@ author:        Ben Gamari
 maintainer:    Ben Gamari <bgamari@gmail.com>
 stability:     experimental
 homepage:      http://github.com/bgamari/optimization
-bug-reports:   http://github.com/ekmett/optimization/issues
+bug-reports:   http://github.com/bgamari/optimization/issues
 copyright:     Copyright (C) 2013 Ben Gamari
 synopsis:      Numerical optimization
 description:
