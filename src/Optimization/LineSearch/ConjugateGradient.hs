@@ -17,6 +17,13 @@ import Linear
 type Beta f a = f a -> f a -> f a -> a
 
 -- | Conjugate gradient method with given beta and line search method
+--
+-- The conjugate gradient method avoids the trouble encountered by the
+-- steepest descent method on poorly conditioned problems (e.g. those with
+-- a wide range of eigenvalues). It does this by choosing directions which
+-- satisfy a condition of @A@ orthogonality, ensuring that steps in the
+-- "unstretched" search space are orthogonal.
+-- TODO: clarify explanation
 {-# INLINEABLE conjGrad #-}
 conjGrad :: (Num a, RealFloat a, Additive f, Metric f)
          => LineSearch f a -> Beta f a
