@@ -1,6 +1,8 @@
 module Optimization.LineSearch.ConjugateGradient
     ( -- * Conjugate gradient methods
       conjGrad
+      -- * General line search
+    , module Optimization.LineSearch
       -- * Beta expressions
     , Beta
     , fletcherReeves
