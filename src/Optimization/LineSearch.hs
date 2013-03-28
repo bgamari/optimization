@@ -27,9 +27,9 @@ module Optimization.LineSearch
 
 import Linear
 
--- | A 'LineSearch' method 'search f df p x' determines a step size
+-- | A 'LineSearch' method 'search df p x' determines a step size
 -- in direction 'p' from point 'x' for function 'f' with gradient 'df'
-type LineSearch f a = (f a -> a) -> (f a -> f a) -> f a -> f a -> a
+type LineSearch f a = (f a -> f a) -> f a -> f a -> a
 
 -- | Armijo condition
 --
@@ -54,20 +54,20 @@ curvature c2 f df x p a =
 -- and reduces it by a factor of @gamma@ until the Armijo condition
 -- is satisfied.
 backtrackingSearch :: (Num a, Ord a, Metric f)
-                   => a -> a -> LineSearch f a
+                   => a -> a -> (f a -> a) -> LineSearch f a
 backtrackingSearch gamma c f df p x =
     head $ dropWhile (not . armijo c f df x p) $ iterate (*gamma) c
 
 -- | Line search by Newton's method
 newtonSearch :: (Num a) => LineSearch f a
-newtonSearch f df p x = undefined
+newtonSearch df p x = undefined
 
 -- | Line search by secant method with given tolerance
 secantSearch :: (Num a, Fractional a) => a -> LineSearch f a
-secantSearch eps f df p x = undefined
+secantSearch eps df p x = undefined
 
 -- | Constant line search
 --
 -- @constantSearch c@ always chooses a step-size @c@.
 constantSearch :: a -> LineSearch f a
-constantSearch c f df p x = c
+constantSearch c df p x = c
