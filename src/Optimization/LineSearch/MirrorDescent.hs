@@ -12,10 +12,12 @@ import Linear
 -- The mirror descent method requires the gradient of a strongly
 -- convex function @psi@ (and its dual) as well as a way to get a
 -- subgradient for each point of the objective function @f@.
-mirrorDescent :: (f a -> f a) -> (f a -> f a) -> f a -> f a
+mirrorDescent :: (Num a, Additive f)
+              => LineSearch f a -> (f a -> f a) -> (f a -> f a)
+              -> (f a -> f a) -> f a -> [f a]
 mirrorDescent search dPsi dPsiStar df y0 = go y0
   where go y0 = let x0 = dPsiStar y0
-                    t0 = undefined -- TODO
+                    t0 = undefined -- search f df (df x0) x0
                     y1 = dPsi x0 ^-^ t0 *^ df x0
                     x1 = dPsiStar y1
                 in x0 : go y1
