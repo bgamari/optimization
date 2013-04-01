@@ -15,7 +15,7 @@ import Linear
 mirrorDescent :: (Num a, Additive f)
               => LineSearch f a -> (f a -> f a) -> (f a -> f a)
               -> (f a -> f a) -> f a -> [f a]
-mirrorDescent search dPsi dPsiStar df y0 = go y0
+mirrorDescent search dPsi dPsiStar df = go
   where go y0 = let x0 = dPsiStar y0
                     t0 = search df (df x0) x0
                     y1 = dPsi x0 ^-^ t0 *^ df x0
