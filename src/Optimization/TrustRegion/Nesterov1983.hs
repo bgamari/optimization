@@ -6,6 +6,10 @@ module Optimization.TrustRegion.Nesterov1983
 import Linear
 
 -- | Nesterov 1983
+-- @optimalGradient kappa l df alpha0 x0@ is Nesterov's optimal
+-- gradient method, first described in 1983. This method requires
+-- knowledge of the Lipschitz constant @l@ of the gradient, the condition
+-- number @kappa@, as well as an initial step size @alpha0@ in @(0,1)@.
 {-# INLINEABLE optimalGradient #-}
 optimalGradient :: (Additive f, Functor f, Ord a, Floating a, Epsilon a)
                 => a -> a -> (f a -> f a) -> a -> f a -> [f a]
