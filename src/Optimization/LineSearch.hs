@@ -21,6 +21,7 @@ module Optimization.LineSearch
       LineSearch
     , backtrackingSearch
     , armijoSearch
+    , wolfeSearch
     , newtonSearch
     , secantSearch
     , constantSearch
@@ -71,6 +72,16 @@ armijoSearch :: (Num a, Ord a, Metric f)
              => a -> a -> a -> (f a -> a) -> LineSearch f a
 armijoSearch gamma c c1 f df p x =
     backtrackingSearch gamma c (armijo c1 f df x p) df p x
+
+-- | Wolfe backtracking line search algorithm
+--
+-- @wolfeSearch gamma alpha c1@ starts with the given step size @alpha@
+-- and reduces it by a factor of @gamma@ until both the Armijo and
+-- curvature conditions is satisfied.
+wolfeSearch :: (Num a, Ord a, Metric f)
+             => a -> a -> a -> a -> (f a -> a) -> LineSearch f a
+wolfeSearch gamma c c1 c2 f df p x =
+    backtrackingSearch gamma c (\a->armijo c1 f df p x a && curvature c2 df x p a) df p x
 
 -- | Line search by Newton's method
 newtonSearch :: (Num a) => LineSearch f a
