@@ -16,7 +16,12 @@ main = do
         x0 = V2 2 2
         search = backtrackingSearch 0.1 0.2 f
         beta = fletcherReeves
+
+    putStrLn "Conjugate gradient"
     forM_ (take 10 $ conjGrad search beta f df x0) $ \x->do print (x, f x)
+    putStrLn "Steepest descent"
     forM_ (take 10 $ steepestDescent search f df x0) $ \x->do print (x, f x)
+    putStrLn "BFGS"
     forM_ (take 10000 $ bfgs search df eye2 x0) $ \x->do print (x, f x)
+    putStrLn "Barzilai-Borwein"
     forM_ (take 100 $ barzilaiBorwein df (V2 3 3) x0) $ \x->do print (x, f x)
