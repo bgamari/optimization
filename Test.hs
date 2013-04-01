@@ -4,6 +4,7 @@ import Control.Monad
 import Optimization.LineSearch.ConjugateGradient
 import Optimization.LineSearch.SteepestDescent
 import Optimization.LineSearch.BFGS
+import Optimization.LineSearch.BarzilaiBorwein
 
 -- | Rosenbrock function
 rosenbrock :: Num a => V2 a -> a
@@ -18,3 +19,4 @@ main = do
     forM_ (take 10 $ conjGrad search beta f df x0) $ \x->do print (x, f x)
     forM_ (take 10 $ steepestDescent search f df x0) $ \x->do print (x, f x)
     forM_ (take 10000 $ bfgs search df eye2 x0) $ \x->do print (x, f x)
+    forM_ (take 100 $ barzilaiBorwein df (V2 3 3) x0) $ \x->do print (x, f x)
