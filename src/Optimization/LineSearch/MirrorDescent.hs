@@ -20,4 +20,4 @@ mirrorDescent search dPsi dPsiStar df = go
                     t0 = search df (df x0) x0
                     y1 = dPsi x0 ^-^ t0 *^ df x0
                     x1 = dPsiStar y1
-                in x0 : go y1
+                in x1 : go y1
