@@ -8,17 +8,20 @@ import Data.Distributive
 import Data.Foldable
 
 -- | Broyden–Fletcher–Goldfarb–Shanno (BFGS) method
--- @bfgs search df b0 x0@
+-- @bfgs search df b0 x0@ where @b0@ is the inverse Hessian (the
+-- identity is often a good initial value).
 bfgs :: (Metric f, Additive f, Distributive f, Foldable f, Num a, Fractional a)
      => LineSearch f a -> (f a -> f a) -> f (f a) -> f a -> [f a]
 bfgs search df = go
-    where go b0 x0 = let p1 = b0 !* df x0
+    where go b0 x0 = let p1 = negated $ b0 !* df x0
                          alpha = search df p1 x0
-                         x1 = x0 ^+^ alpha *^ p1
                          s = alpha *^ p1
-                         y0 = df x1 ^-^ df x0
-                         u = outer y0 y0 !!/ (y0 `dot` s)
-                         v = (b0 !*! outer s s !*! b0) !!/ ((s *! b0) `dot` s)
+                         x1 = x0 ^+^ s
+                         y = df x1 ^-^ df x0
+                         -- Sherman-Morrison update of inverse Hessian
+                         sy = s `dot` y
+                         u = ((sy + y `dot` (b0 !* y)) *!! outer s s) !!/ (sy^2)
+                         v = (b0 !*! outer y s !+! outer s y !*! b0) !!/ sy
                          b1 = b0 !+! u !-! v
                      in x1 : go b1 x1
 
