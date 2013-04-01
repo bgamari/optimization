@@ -44,8 +44,8 @@ armijo c1 f df x p a =
 
 -- | Curvature condition
 curvature :: (Num a, Ord a, Additive f, Metric f)
-          => a -> (f a -> a) -> (f a -> f a) -> f a -> f a -> a -> Bool
-curvature c2 f df x p a =
+          => a -> (f a -> f a) -> f a -> f a -> a -> Bool
+curvature c2 df x p a =
     df (x ^+^ a *^ p) `dot` p >= c2 * (df x `dot` p)
 
 -- | Backtracking line search algorithm
@@ -62,14 +62,14 @@ backtrackingSearch gamma c f df p x =
 
 -- | Line search by Newton's method
 newtonSearch :: (Num a) => LineSearch f a
-newtonSearch df p x = undefined
+newtonSearch = undefined
 
 -- | Line search by secant method with given tolerance
 secantSearch :: (Num a, Fractional a) => a -> LineSearch f a
-secantSearch eps df p x = undefined
+secantSearch = undefined
 
 -- | Constant line search
 --
 -- @constantSearch c@ always chooses a step-size @c@.
 constantSearch :: a -> LineSearch f a
-constantSearch c df p x = c
+constantSearch c _ _ _ = c
