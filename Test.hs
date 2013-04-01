@@ -18,7 +18,7 @@ main = do
         beta = fletcherReeves
 
     putStrLn "Conjugate gradient"
-    forM_ (take 10 $ conjGrad search beta f df x0) $ \x->do print (x, f x)
+    forM_ (take 10 $ conjGrad search beta df x0) $ \x->do print (x, f x)
     putStrLn "Steepest descent"
     forM_ (take 10 $ steepestDescent search f df x0) $ \x->do print (x, f x)
     putStrLn "BFGS"

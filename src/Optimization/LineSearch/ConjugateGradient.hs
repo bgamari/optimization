@@ -29,8 +29,8 @@ type Beta f a = f a -> f a -> f a -> a
 {-# INLINEABLE conjGrad #-}
 conjGrad :: (Num a, RealFloat a, Additive f, Metric f)
          => LineSearch f a -> Beta f a
-         -> (f a -> a) -> (f a -> f a) -> f a -> [f a]
-conjGrad search beta f df x0 = go (negated $ df x0) x0
+         -> (f a -> f a) -> f a -> [f a]
+conjGrad search beta df x0 = go (negated $ df x0) x0
   where go p x = let a = search df p x
                      x' = x ^+^ a *^ p
                      b = beta (df x) (df x') p
