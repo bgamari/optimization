@@ -14,7 +14,7 @@ main = do
     let f = rosenbrock
         df = grad rosenbrock :: V2 Double -> V2 Double
         x0 = V2 2 2
-        search = backtrackingSearch 0.1 0.2 f
+        search = armijoSearch 0.1 0.2 0.2 f
         beta = fletcherReeves
 
     putStrLn "Conjugate gradient"

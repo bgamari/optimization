@@ -20,11 +20,13 @@ module Optimization.LineSearch
     ( -- * Line search methods
       LineSearch
     , backtrackingSearch
+    , armijoSearch
     , newtonSearch
     , secantSearch
     , constantSearch
     ) where
 
+import Prelude hiding (pred)
 import Linear
 
 -- | A 'LineSearch' method 'search df p x' determines a step size
@@ -50,15 +52,25 @@ curvature c2 df x p a =
 
 -- | Backtracking line search algorithm
 --
--- @backtrackingSearch gamma c@ starts with the given step size @c@
--- and reduces it by a factor of @gamma@ until the Armijo condition
--- is satisfied.
+-- @backtrackingSearch gamma alpha pred@ starts with the given step
+-- size @alpha@ and reduces it by a factor of @gamma@ until the given
+-- condition is satisfied.
 backtrackingSearch :: (Num a, Ord a, Metric f)
-                   => a -> a -> (f a -> a) -> LineSearch f a
-backtrackingSearch gamma c f df p x =
-    head $ dropWhile (not . armijo c f df x p) $ nonzero $ iterate (*gamma) c
+                   => a -> a -> (a -> Bool) -> LineSearch f a
+backtrackingSearch gamma alpha pred _ _ _ =
+    head $ dropWhile (not . pred) $ nonzero $ iterate (*gamma) alpha
   where nonzero (x:xs) | not $ x > 0 = error "Backtracking search failed" -- FIXME
                        | otherwise   = x : nonzero xs
+
+-- | Armijo backtracking line search algorithm
+--
+-- @armijoSearch gamma alpha c1@ starts with the given step size @alpha@
+-- and reduces it by a factor of @gamma@ until the Armijo condition
+-- is satisfied.
+armijoSearch :: (Num a, Ord a, Metric f)
+             => a -> a -> a -> (f a -> a) -> LineSearch f a
+armijoSearch gamma c c1 f df p x =
+    backtrackingSearch gamma c (armijo c1 f df x p) df p x
 
 -- | Line search by Newton's method
 newtonSearch :: (Num a) => LineSearch f a
