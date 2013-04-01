@@ -56,7 +56,9 @@ curvature c2 f df x p a =
 backtrackingSearch :: (Num a, Ord a, Metric f)
                    => a -> a -> (f a -> a) -> LineSearch f a
 backtrackingSearch gamma c f df p x =
-    head $ dropWhile (not . armijo c f df x p) $ iterate (*gamma) c
+    head $ dropWhile (not . armijo c f df x p) $ nonzero $ iterate (*gamma) c
+  where nonzero (x:xs) | not $ x > 0 = error "Backtracking search failed" -- FIXME
+                       | otherwise   = x : nonzero xs
 
 -- | Line search by Newton's method
 newtonSearch :: (Num a) => LineSearch f a
