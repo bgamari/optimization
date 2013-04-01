@@ -62,6 +62,7 @@ library
     Optimization.LineSearch.BarzilaiBorwein
     Optimization.LineSearch.SteepestDescent
     Optimization.LineSearch.MirrorDescent
+    Optimization.LineSearch.BFGS
     Optimization.TrustRegion.Nesterov1983
     Optimization.TrustRegion.Fista
     Optimization.TrustRegion.Newton
