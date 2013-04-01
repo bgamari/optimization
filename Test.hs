@@ -20,7 +20,7 @@ main = do
     putStrLn "Conjugate gradient"
     forM_ (take 10 $ conjGrad search beta df x0) $ \x->do print (x, f x)
     putStrLn "Steepest descent"
-    forM_ (take 10 $ steepestDescent search f df x0) $ \x->do print (x, f x)
+    forM_ (take 10 $ steepestDescent search df x0) $ \x->do print (x, f x)
     putStrLn "BFGS"
     forM_ (take 10000 $ bfgs search df eye2 x0) $ \x->do print (x, f x)
     putStrLn "Barzilai-Borwein"
