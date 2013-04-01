@@ -30,9 +30,6 @@ bfgs search df = go
                          b1 = u !*! b0 !*! v !+! rho *!! outer s s
                      in x1 : go b1 x1
 
-(!!/) :: (Functor f, Functor g, Fractional a) => f (g a) -> a -> f (g a)
-m !!/ s = m !!* recip s
-
 -- | Outer product
 outer :: (Functor f, Functor g, Num a) => f a -> g a -> f (g a)
 outer a b = fmap (\x->fmap (*x) b) a
