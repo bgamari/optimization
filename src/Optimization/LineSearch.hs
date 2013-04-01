@@ -60,8 +60,9 @@ backtrackingSearch :: (Num a, Ord a, Metric f)
                    => a -> a -> (a -> Bool) -> LineSearch f a
 backtrackingSearch gamma alpha pred _ _ _ =
     head $ dropWhile (not . pred) $ nonzero $ iterate (*gamma) alpha
-  where nonzero (x:xs) | not $ x > 0 = error "Backtracking search failed" -- FIXME
+  where nonzero (x:xs) | not $ x > 0 = error "Backtracking search failed: alpha=0" -- FIXME
                        | otherwise   = x : nonzero xs
+        nonzero [] = error "Backtracking search failed: no more iterates"
 
 -- | Armijo backtracking line search algorithm
 --
