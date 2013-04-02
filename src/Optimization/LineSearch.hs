@@ -71,8 +71,8 @@ backtrackingSearch gamma alpha pred _ _ _ =
 -- is satisfied.
 armijoSearch :: (Num a, Ord a, Metric f)
              => a -> a -> a -> (f a -> a) -> LineSearch f a
-armijoSearch gamma c c1 f df p x =
-    backtrackingSearch gamma c (armijo c1 f df x p) df p x
+armijoSearch gamma alpha c1 f df p x =
+    backtrackingSearch gamma alpha (armijo c1 f df x p) df p x
 
 -- | Wolfe backtracking line search algorithm
 --
@@ -81,8 +81,9 @@ armijoSearch gamma c c1 f df p x =
 -- curvature conditions is satisfied.
 wolfeSearch :: (Num a, Ord a, Metric f)
              => a -> a -> a -> a -> (f a -> a) -> LineSearch f a
-wolfeSearch gamma c c1 c2 f df p x =
-    backtrackingSearch gamma c (\a->armijo c1 f df p x a && curvature c2 df x p a) df p x
+wolfeSearch gamma alpha c1 c2 f df p x =
+    backtrackingSearch gamma alpha wolfe df p x
+  where wolfe a = armijo c1 f df p x a && curvature c2 df x p a
 
 -- | Line search by Newton's method
 newtonSearch :: (Num a) => LineSearch f a
