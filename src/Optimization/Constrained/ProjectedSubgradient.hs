@@ -7,10 +7,15 @@ module Optimization.Constrained.ProjectedSubgradient
     , constStepSched
     , sqrtKStepSched
     , invKStepSched
+      -- * Linear constraints
+    , Constraint(..)
+    , linearProjection
     ) where
 
 import Linear
 import Data.Traversable
+import Data.Function (on)
+import Data.List (maximumBy)
 
 -- | A step size schedule
 type StepSched f a = [f a -> a -> a]
@@ -62,3 +67,23 @@ invKStepSched :: Fractional a
               -> StepSched f a
 invKStepSched gamma =
     map (\k _ _ -> gamma / fromIntegral k) [0..]
+
+data Constraint f a = Constr Ordering a (f a)
+                    deriving (Show)
+
+linearProjection :: (Fractional a, Ord a, Show a, RealFloat a, Metric f)
+                 => [Constraint f a] -- ^ A set of linear constraints
+                 -> f a -> f a
+linearProjection constraints x =
+    case unmet of
+      []   -> x
+      _    -> linearProjection constraints $ fixConstraint x
+              $ maximumBy (flip compare `on` (`ap` x)) unmet
+  where unmet = filter (not . met x) constraints
+        ap (Constr _ b a) c = a `dot` c - b
+        met c (Constr t a constr) = let y = constr `dot` c - a
+                                    in case t of
+                                       EQ -> abs y < 1e-4
+                                       GT -> y >= 0 || abs y < 1e-4
+                                       LT -> y <= 0 || abs y < 1e-4
+        fixConstraint c (Constr _ b a) = c ^-^ (a `dot` c - b) *^ a ^/ quadrance a
