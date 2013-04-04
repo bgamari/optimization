@@ -68,9 +68,13 @@ invKStepSched :: Fractional a
 invKStepSched gamma =
     map (\k _ _ -> gamma / fromIntegral k) [0..]
 
+-- | A linear constraint. For instance, @Constr LT 2 (V2 1 3)@ defines
+-- the constraint @x_1 + 3 x_2 <= 2@
 data Constraint f a = Constr Ordering a (f a)
                     deriving (Show)
 
+-- | Project onto a the space of feasible solutions defined by a set
+-- of linear constraints
 linearProjection :: (Fractional a, Ord a, RealFloat a, Metric f)
                  => [Constraint f a] -- ^ A set of linear constraints
                  -> f a -> f a
