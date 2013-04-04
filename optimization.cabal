@@ -67,6 +67,7 @@ library
     Optimization.TrustRegion.Fista
     Optimization.TrustRegion.Newton
     Optimization.Constrained.Penalty
+    Optimization.Constrained.ProjectedSubgradient
 
 
 test-suite doctests
