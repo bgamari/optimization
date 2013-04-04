@@ -71,7 +71,7 @@ invKStepSched gamma =
 data Constraint f a = Constr Ordering a (f a)
                     deriving (Show)
 
-linearProjection :: (Fractional a, Ord a, Show a, RealFloat a, Metric f)
+linearProjection :: (Fractional a, Ord a, RealFloat a, Metric f)
                  => [Constraint f a] -- ^ A set of linear constraints
                  -> f a -> f a
 linearProjection constraints x =
