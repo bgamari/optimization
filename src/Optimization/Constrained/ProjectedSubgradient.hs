@@ -1,6 +1,7 @@
 module Optimization.Constrained.ProjectedSubgradient
     ( -- * Projected subgradient method
-      linearProjSubgrad
+      projSubgrad
+    , linearProjSubgrad
       -- * Step schedules
     , StepSched
     , optimalStepSched
@@ -18,7 +19,27 @@ import Data.Function (on)
 import Data.List (maximumBy)
 
 -- | A step size schedule
+-- A list of functions (one per step) which, given a function's
+-- gradient and value, will provide a size for the next step
 type StepSched f a = [f a -> a -> a]
+
+-- | @projSubgrad stepSizes proj a b x0@ minimizes the objective @A
+-- x - b@ potentially projecting iterates into a feasible space with
+-- @proj@ with the given step-size schedule
+projSubgrad :: (Additive f, Traversable f, Metric f, Ord a, Fractional a)
+            => StepSched f a  -- ^ A step size schedule
+            -> (f a -> f a)   -- ^ Function projecting into the feasible space
+            -> (f a -> f a)   -- ^ Gradient of objective function
+            -> (f a -> a)     -- ^ The objective function
+            -> f a            -- ^ Initial solution
+            -> [f a]
+projSubgrad stepSizes proj df f = go stepSizes
+  where go (alpha:rest) x0 =
+            let p = negated $ df x0
+                step = alpha (df x0) (f x0)
+                x1 = proj $ x0 ^+^ step *^ p
+            in x1 : go rest x1
+        go [] _ = []
 
 -- | @linearProjSubgrad stepSizes proj a b x0@ minimizes the objective @A
 -- x - b@ potentially projecting iterates into a feasible space with
