@@ -8,8 +8,8 @@ import Linear
 --
 -- Originally described by Nemirovsky and Yudin and later elucidated
 -- by Beck and Teboulle, the mirror descent method is a generalization of
--- the projected subgradient method for convex optimization
--- The mirror descent method requires the gradient of a strongly
+-- the projected subgradient method for convex optimization.
+-- Mirror descent requires the gradient of a strongly
 -- convex function @psi@ (and its dual) as well as a way to get a
 -- subgradient for each point of the objective function @f@.
 mirrorDescent :: (Num a, Additive f)
