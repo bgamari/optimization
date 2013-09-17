@@ -15,17 +15,11 @@ module Optimization.Constrained.Penalty
   , maximize
     -- * Finding the Lagrangian
   , lagrangian
-  , V(..)
   ) where
 
 import           Numeric.AD.Types
 
-import           Data.Maybe
-import           Control.Applicative
-import           GHC.TypeLits
 import qualified Data.Vector as V
-import           Data.Traversable
-import           Data.Foldable
 
 newtype FU f a = FU { runFU :: forall s. Mode s => f (AD s a) -> AD s a }
 
