@@ -14,7 +14,7 @@ import Linear
 
 -- | Newton's method
 {-# INLINEABLE newton #-}
-newton :: (Num a, Ord a, Additive f, Metric f)
+newton :: (Num a, Ord a, Additive f, Metric f, Foldable f)
        => (f a -> a) -> (f a -> f a) -> (f a -> f (f a)) -> f a -> [f a]
 newton f df ddfInv x0 = iterate go x0
   where go x = x ^-^ ddfInv x !* df x
