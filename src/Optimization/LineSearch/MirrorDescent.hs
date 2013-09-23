@@ -21,3 +21,5 @@ mirrorDescent search dPsi dPsiStar df = go
                     y1 = dPsi x0 ^-^ t0 *^ df x0
                     x1 = dPsiStar y1
                 in x1 : go y1
+{-# INLINEABLE mirrorDescent #-}
+
