@@ -10,7 +10,6 @@ import Linear
 -- gradient method, first described in 1983. This method requires
 -- knowledge of the Lipschitz constant @l@ of the gradient, the condition
 -- number @kappa@, as well as an initial step size @alpha0@ in @(0,1)@.
-{-# INLINEABLE optimalGradient #-}
 optimalGradient :: (Additive f, Functor f, Ord a, Floating a, Epsilon a)
                 => a -> a -> (f a -> f a) -> a -> f a -> [f a]
 optimalGradient kappa l df a0' x0' = go a0' x0' x0'
@@ -22,6 +21,7 @@ optimalGradient kappa l df a0' x0' = go a0' x0' x0'
                           b1 = a0 * (1 - a0) / (a0^2 + a1)
                           y1 = x1 ^+^ b1 *^ (x1 ^-^ x0)
                       in x1 : go a0 x1 y1
+{-# INLINEABLE optimalGradient #-}
 
 -- | 'quadratic a b c' is the real solutions to a quadratic equation
 -- 'a x^2 + b x + c == 0'
@@ -33,3 +33,4 @@ quadratic a b c
     | otherwise      = [ (-b + sqrt discr) / 2 / a
                        , (-b - sqrt discr) / 2 / a ]
   where discr = b^2 - 4*a*c
+{-# INLINEABLE quadratic #-}
