@@ -15,3 +15,4 @@ barzilaiBorwein df = go
                    in if nearZero (z `dot` z)
                         then [x2]
                         else x2 : go x1 x2
+{-# INLINABLE barzilaiBorwein #-}  
