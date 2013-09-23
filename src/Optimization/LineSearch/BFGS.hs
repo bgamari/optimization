@@ -29,3 +29,5 @@ bfgs search df = go
                          v = i !-! rho *!! outer s y
                          b1 = u !*! b0 !*! v !+! rho *!! outer s s
                      in x1 : go b1 x1
+{-# INLINABLE bfgs #-}    
+
