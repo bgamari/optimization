@@ -63,6 +63,7 @@ backtrackingSearch gamma alpha pred _ _ _ =
   where nonzero (x:xs) | not $ x > 0 = error "Backtracking search failed: alpha=0" -- FIXME
                        | otherwise   = x : nonzero xs
         nonzero [] = error "Backtracking search failed: no more iterates"
+{-# INLINEABLE backtrackingSearch #-}
 
 -- | Armijo backtracking line search algorithm
 --
@@ -73,6 +74,7 @@ armijoSearch :: (Num a, Ord a, Metric f)
              => a -> a -> a -> (f a -> a) -> LineSearch f a
 armijoSearch gamma alpha c1 f df p x =
     backtrackingSearch gamma alpha (armijo c1 f df x p) df p x
+{-# INLINEABLE armijoSearch #-}
 
 -- | Wolfe backtracking line search algorithm
 --
@@ -84,6 +86,7 @@ wolfeSearch :: (Num a, Ord a, Metric f)
 wolfeSearch gamma alpha c1 c2 f df p x =
     backtrackingSearch gamma alpha wolfe df p x
   where wolfe a = armijo c1 f df p x a && curvature c2 df x p a
+{-# INLINEABLE wolfeSearch #-}
 
 -- | Line search by Newton's method
 newtonSearch :: (Num a) => LineSearch f a
@@ -98,3 +101,4 @@ secantSearch = undefined
 -- @constantSearch c@ always chooses a step-size @c@.
 constantSearch :: a -> LineSearch f a
 constantSearch c _ _ _ = c
+{-# INLINEABLE constantSearch #-}
