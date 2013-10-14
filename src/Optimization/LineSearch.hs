@@ -60,6 +60,7 @@ armijo :: (Num a, Additive f, Ord a, Metric f)
        -> Bool         -- ^ is Armijo condition satisfied?
 armijo c1 f df x p a =
     f (x ^+^ a *^ p) <= f x + c1 * a * (df x `dot` p)
+{-# INLINE armijo #-}
 
 -- | Curvature condition
 curvature :: (Num a, Ord a, Additive f, Metric f)
@@ -71,6 +72,7 @@ curvature :: (Num a, Ord a, Additive f, Metric f)
           -> Bool          -- ^ is curvature condition satisfied
 curvature c2 df x p a =
     df (x ^+^ a *^ p) `dot` p >= c2 * (df x `dot` p)
+{-# INLINE curvature #-}
 
 -- | Backtracking line search algorithm
 --
