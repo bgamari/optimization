@@ -1,5 +1,8 @@
 module Optimization.LineSearch.MirrorDescent
-    ( mirrorDescent ) where
+    ( mirrorDescent
+      -- * Step size methods
+    , module Optimization.LineSearch
+    ) where
 
 import Optimization.LineSearch
 import Linear

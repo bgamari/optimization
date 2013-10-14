@@ -1,6 +1,8 @@
 module Optimization.LineSearch.SteepestDescent
     ( -- * Steepest descent method
       steepestDescent
+      -- * Step size methods
+    , module Optimization.LineSearch
     ) where
 
 import Optimization.LineSearch

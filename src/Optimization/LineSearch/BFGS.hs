@@ -1,6 +1,11 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
-module Optimization.LineSearch.BFGS (bfgs) where
+module Optimization.LineSearch.BFGS
+    ( -- * Broyden-Fletcher-Goldfarb-Shanna (BFGS) method
+      bfgs
+      -- * Step size methods
+    , module Optimization.LineSearch
+    ) where
 
 import Linear
 import Optimization.LineSearch

@@ -1,7 +1,7 @@
 module Optimization.LineSearch.ConjugateGradient
     ( -- * Conjugate gradient methods
       conjGrad
-      -- * General line search
+      -- * Step size methods
     , module Optimization.LineSearch
       -- * Beta expressions
     , Beta

@@ -1,5 +1,8 @@
 module Optimization.LineSearch.BarzilaiBorwein
-    ( barzilaiBorwein
+    ( -- * Barizilai-Borwein method
+      barzilaiBorwein
+      -- * Step size methods
+    , module Optimization.LineSearch
     ) where
 
 import Linear
