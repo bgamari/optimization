@@ -14,7 +14,10 @@ import Linear
 
 -- | Newton's method
 newton :: (Num a, Ord a, Additive f, Metric f, Foldable f)
-       => (f a -> f a) -> (f a -> f (f a)) -> f a -> [f a]
+       => (f a -> f a)         -- ^ gradient of function
+       -> (f a -> f (f a))     -- ^ inverse Hessian
+       -> f a                  -- ^ starting point
+       -> [f a]                -- ^ iterates
 newton df ddfInv x0 = iterate go x0
   where go x = x ^-^ ddfInv x !* df x
 {-# INLINEABLE newton #-}
@@ -30,7 +33,7 @@ bicInv' a0 a = iterate go a0
 
 -- | Inverse by iterative method of Ben-Israel and Cohen
 -- starting from @alpha A^T@. Alpha should be set such that
--- 0 < alpha < 2/sigma^2 where sigma denotes the largest singular
+-- 0 < alpha < 2/sigma^2 where @sigma@ denotes the largest singular
 -- value of A
 bicInv :: (Functor m, Distributive m, Additive m,
            Applicative m, Apply m, Foldable m, Conjugate a)
