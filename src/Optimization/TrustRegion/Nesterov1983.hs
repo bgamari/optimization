@@ -11,7 +11,12 @@ import Linear
 -- knowledge of the Lipschitz constant @l@ of the gradient, the condition
 -- number @kappa@, as well as an initial step size @alpha0@ in @(0,1)@.
 optimalGradient :: (Additive f, Functor f, Ord a, Floating a, Epsilon a)
-                => a -> a -> (f a -> f a) -> a -> f a -> [f a]
+                => a               -- ^ condition number, @kappa@
+                -> a               -- ^ Lipschitz constant, @l@
+                -> (f a -> f a)    -- ^ gradient of function
+                -> a               -- ^ initial step size, @alpha0@
+                -> f a             -- ^ starting point
+                -> [f a]           -- ^ iterates
 optimalGradient kappa l df a0' x0' = go a0' x0' x0'
   where go a0 x0 y0 = let x1 = y0 ^-^ df y0 ^/ l
                           alphas = quadratic 1 (a0^2 - 1/kappa) (-a0^2)
