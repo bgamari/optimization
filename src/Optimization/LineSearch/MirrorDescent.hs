@@ -13,8 +13,12 @@ import Linear
 -- convex function @psi@ (and its dual) as well as a way to get a
 -- subgradient for each point of the objective function @f@.
 mirrorDescent :: (Num a, Additive f)
-              => LineSearch f a -> (f a -> f a) -> (f a -> f a)
-              -> (f a -> f a) -> f a -> [f a]
+              => LineSearch f a  -- ^ line search method
+              -> (f a -> f a)    -- ^ strongly convex function, @psi@
+              -> (f a -> f a)    -- ^ dual of @psi@
+              -> (f a -> f a)    -- ^ gradient of function
+              -> f a             -- ^ starting point
+              -> [f a]           -- ^ iterates
 mirrorDescent search dPsi dPsiStar df = go
   where go y0 = let x0 = dPsiStar y0
                     t0 = search df (df x0) x0
