@@ -15,16 +15,21 @@
 -- Here we provide several methods for determining this optimal
 -- distance. These can be used with any of line-search optimization
 -- algorithms found in this namespace.
+--
 
 module Optimization.LineSearch
     ( -- * Line search methods
       LineSearch
     , backtrackingSearch
-    , armijoSearch
-    , wolfeSearch
+      -- * Other line search methods
+    , constantSearch
     , newtonSearch
     , secantSearch
-    , constantSearch
+      -- * Wolfe conditions
+      -- Nocedal gives typical values of 10^-4 for @c1@ and 0.9 for
+      -- @c2@
+    , armijoSearch
+    , wolfeSearch
     ) where
 
 import Prelude hiding (pred)
@@ -32,7 +37,10 @@ import Linear
 
 -- | A line search method @search df p x@ determines a step size
 -- in direction @p@ from point @x@ for function @f@ with gradient @df@
-type LineSearch f a = (f a -> f a) -> f a -> f a -> a
+type LineSearch f a = (f a -> f a)    -- ^ gradient of function
+                   -> f a             -- ^ search direction
+                   -> f a             -- ^ starting point
+                   -> a               -- ^ step size
 
 -- | Armijo condition
 --
@@ -41,23 +49,40 @@ type LineSearch f a = (f a -> f a) -> f a -> f a -> a
 -- as predicted by its gradient. This often finds its place as a criterion
 -- for line-search
 armijo :: (Num a, Additive f, Ord a, Metric f)
-       => a -> (f a -> a) -> (f a -> f a) -> f a -> f a -> a -> Bool
+       => a            -- ^ Armijo condition strength
+       -> (f a -> a)   -- ^ function value
+       -> (f a -> f a) -- ^ gradient of function
+       -> f a          -- ^ point to evaulate at
+       -> f a          -- ^ search direction
+       -> a            -- ^ search step size
+       -> Bool         -- ^ is Armijo condition satisfied?
 armijo c1 f df x p a =
     f (x ^+^ a *^ p) <= f x + c1 * a * (df x `dot` p)
 
 -- | Curvature condition
 curvature :: (Num a, Ord a, Additive f, Metric f)
-          => a -> (f a -> f a) -> f a -> f a -> a -> Bool
+          => a             -- ^ curvature condition strength c2
+          -> (f a -> f a)  -- ^ gradient of function
+          -> f a           -- ^ point to evaluate at
+          -> f a           -- ^ search direction
+          -> a             -- ^ search step size
+          -> Bool          -- ^ is curvature condition satisfied
 curvature c2 df x p a =
     df (x ^+^ a *^ p) `dot` p >= c2 * (df x `dot` p)
 
 -- | Backtracking line search algorithm
 --
+-- This is a building block for line search algorithms which reduces
+-- its step size until the given condition is satisfied.
+-- 
 -- @backtrackingSearch gamma alpha pred@ starts with the given step
 -- size @alpha@ and reduces it by a factor of @gamma@ until the given
 -- condition is satisfied.
 backtrackingSearch :: (Num a, Ord a, Metric f)
-                   => a -> a -> (a -> Bool) -> LineSearch f a
+                   => a            -- ^ step size reduction factor gamma
+                   -> a            -- ^ initial step size alpha
+                   -> (a -> Bool)  -- ^ search condition
+                   -> LineSearch f a
 backtrackingSearch gamma alpha pred _ _ _ =
     head $ dropWhile (not . pred) $ nonzero $ iterate (*gamma) alpha
   where nonzero (x:xs) | not $ x > 0 = error "Backtracking search failed: alpha=0" -- FIXME
@@ -71,7 +96,11 @@ backtrackingSearch gamma alpha pred _ _ _ =
 -- and reduces it by a factor of @gamma@ until the Armijo condition
 -- is satisfied.
 armijoSearch :: (Num a, Ord a, Metric f)
-             => a -> a -> a -> (f a -> a) -> LineSearch f a
+             => a                   -- ^ step size reduction factor gamma
+             -> a                   -- ^ initial step size alpha
+             -> a                   -- ^ Armijo condition strength c1
+             -> (f a -> a)          -- ^ function value
+             -> LineSearch f a
 armijoSearch gamma alpha c1 f df p x =
     backtrackingSearch gamma alpha (armijo c1 f df x p) df p x
 {-# INLINEABLE armijoSearch #-}
@@ -82,7 +111,12 @@ armijoSearch gamma alpha c1 f df p x =
 -- and reduces it by a factor of @gamma@ until both the Armijo and
 -- curvature conditions is satisfied.
 wolfeSearch :: (Num a, Ord a, Metric f)
-             => a -> a -> a -> a -> (f a -> a) -> LineSearch f a
+             => a                   -- ^ step size reduction factor gamma
+             -> a                   -- ^ initial step size alpha
+             -> a                   -- ^ Armijo condition strength c1
+             -> a                   -- ^ curvature condition strength c2
+             -> (f a -> a)          -- ^ function value
+             -> LineSearch f a
 wolfeSearch gamma alpha c1 c2 f df p x =
     backtrackingSearch gamma alpha wolfe df p x
   where wolfe a = armijo c1 f df p x a && curvature c2 df x p a
@@ -99,6 +133,7 @@ secantSearch = undefined
 -- | Constant line search
 --
 -- @constantSearch c@ always chooses a step-size @c@.
-constantSearch :: a -> LineSearch f a
+constantSearch :: a                 -- ^ step size
+               -> LineSearch f a
 constantSearch c _ _ _ = c
 {-# INLINEABLE constantSearch #-}
