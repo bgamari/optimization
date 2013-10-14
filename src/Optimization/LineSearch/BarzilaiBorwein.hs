@@ -6,6 +6,7 @@ module Optimization.LineSearch.BarzilaiBorwein
     ) where
 
 import Linear
+import Optimization.LineSearch
 
 -- | Barzilai-Borwein 1988 is a non-monotonic optimization method
 barzilaiBorwein :: (Additive f, Metric f, Functor f, Fractional a, Epsilon a)
