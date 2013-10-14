@@ -126,10 +126,12 @@ wolfeSearch gamma alpha c1 c2 f df p x =
 -- | Line search by Newton's method
 newtonSearch :: (Num a) => LineSearch f a
 newtonSearch = undefined
+{-# INLINEABLE newtonSearch #-}
 
 -- | Line search by secant method with given tolerance
 secantSearch :: (Num a, Fractional a) => a -> LineSearch f a
 secantSearch = undefined
+{-# INLINEABLE secantSearch #-}
 
 -- | Constant line search
 --
