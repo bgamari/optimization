@@ -6,15 +6,17 @@
 -- Stability   : provisional
 -- Portability : portable
 --
+-- This module provides various methods for choosing step sizes for
+-- line search optimization methods. These methods can be used with
+-- any of line-search algorithms in the @Optimization.LineSearch@
+-- namespace. This module is re-exported from these modules
+-- so there should be no need to import it directly.
+--
 -- Line search algorithms are a class of iterative optimization
 -- methods. These methods start at an initial point @x0@ and then choose
 -- a direction @p@ (by some method) to advance in. The algorithm then
 -- uses one of the methods in this module to identify an optimal distance
 -- @a@ (known as the step-size) by which to advance.
---
--- Here we provide several methods for choosing this step size.
--- These methods can be used with any of line-search algorithms in
--- the @Optimization.LineSearch@ namespace.
 --
 
 module Optimization.LineSearch
