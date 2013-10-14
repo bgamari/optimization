@@ -8,7 +8,7 @@ import Linear
 -- | Fast Iterative Shrinkage-Thresholding Algorithm (FISTA) with
 -- constant step size
 fista :: (Additive f, Fractional a, Floating a)
-      => a             -- ^ length parameter
+      => a             -- ^ Lipschitz constant, @l@
       -> (f a -> f a)  -- ^ gradient of function
       -> f a           -- ^ starting point
       -> [f a]         -- ^ iterates
