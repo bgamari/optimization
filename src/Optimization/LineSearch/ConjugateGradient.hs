@@ -13,9 +13,9 @@ module Optimization.LineSearch.ConjugateGradient
 import Optimization.LineSearch
 import Linear
 
--- | A beta expression 'beta df0 df1 p' is an expression for the
--- conjugate direction contribution given the derivative 'df0' and
--- direction 'p' for iteration 'k', 'df1' for iteration 'k+1'
+-- | A beta expression @beta df0 df1 p@ is an expression for the
+-- conjugate direction contribution given the derivative @df0@ and
+-- direction @p@ for iteration @k@, @df1@ for iteration @k+1@
 type Beta f a = f a -> f a -> f a -> a
 
 -- | Conjugate gradient method with given beta and line search method

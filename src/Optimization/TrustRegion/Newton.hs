@@ -29,7 +29,7 @@ bicInv' a0 a = iterate go a0
 {-# INLINEABLE bicInv' #-}
 
 -- | Inverse by iterative method of Ben-Israel and Cohen
--- starting from 'alpha A^T'. Alpha should be set such that
+-- starting from @alpha A^T@. Alpha should be set such that
 -- 0 < alpha < 2/sigma^2 where sigma denotes the largest singular
 -- value of A
 bicInv :: (Functor m, Distributive m, Additive m,

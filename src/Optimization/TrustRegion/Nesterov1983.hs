@@ -23,8 +23,8 @@ optimalGradient kappa l df a0' x0' = go a0' x0' x0'
                       in x1 : go a0 x1 y1
 {-# INLINEABLE optimalGradient #-}
 
--- | 'quadratic a b c' is the real solutions to a quadratic equation
--- 'a x^2 + b x + c == 0'
+-- | @quadratic a b c@ is the real solutions to a quadratic equation
+-- @a x^2 + b x + c == 0@
 quadratic :: (Ord a, Floating a, Epsilon a)
           => a -> a -> a -> [a]
 quadratic a b c

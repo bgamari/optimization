@@ -30,8 +30,8 @@ module Optimization.LineSearch
 import Prelude hiding (pred)
 import Linear
 
--- | A 'LineSearch' method 'search df p x' determines a step size
--- in direction 'p' from point 'x' for function 'f' with gradient 'df'
+-- | A line search method @search df p x@ determines a step size
+-- in direction @p@ from point @x@ for function @f@ with gradient @df@
 type LineSearch f a = (f a -> f a) -> f a -> f a -> a
 
 -- | Armijo condition
