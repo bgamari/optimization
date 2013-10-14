@@ -13,10 +13,13 @@ import Linear
 --
 -- The steepest descent method chooses the negative gradient of the function
 -- as its step direction.
-{-# INLINEABLE steepestDescent #-}
 steepestDescent :: (Num a, Ord a, Additive f, Metric f)
-                => LineSearch f a -> (f a -> f a) -> f a -> [f a]
+                => LineSearch f a    -- ^ line search method
+                -> (f a -> f a)      -- ^ gradient of function
+                -> f a               -- ^ starting point
+                -> [f a]             -- ^ iterates
 steepestDescent search df x0 = iterate go x0
   where go x = let p = negated (df x)
                    a = search df p x
                in x ^+^ a *^ p
+{-# INLINEABLE steepestDescent #-}
