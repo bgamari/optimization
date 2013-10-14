@@ -7,14 +7,14 @@
 -- Portability : portable
 --
 -- Line search algorithms are a class of iterative optimization
--- methods. These methods are distinguished by the characteristic of,
--- starting from a point @x0@, choosing a direction @d@ (by some method)
--- to advance and then finding an optimal distance @a@ (known as the
--- step-size) to advance in this direction.
+-- methods. These methods start at an initial point @x0@ and then choose
+-- a direction @p@ (by some method) to advance in. The algorithm then
+-- uses one of the methods in this module to identify an optimal distance
+-- @a@ (known as the step-size) by which to advance.
 --
--- Here we provide several methods for determining this optimal
--- distance. These can be used with any of line-search optimization
--- algorithms found in this namespace.
+-- Here we provide several methods for choosing this step size.
+-- These methods can be used with any of line-search algorithms in
+-- the @Optimization.LineSearch@ namespace.
 --
 
 module Optimization.LineSearch
