@@ -105,7 +105,8 @@ armijoSearch gamma alpha c1 f df p x =
     backtrackingSearch gamma alpha (armijo c1 f df x p) df p x
 {-# INLINEABLE armijoSearch #-}
 
--- | Wolfe backtracking line search algorithm
+-- | Wolfe backtracking line search algorithm (satisfies both Armijo and
+-- curvature conditions)
 --
 -- @wolfeSearch gamma alpha c1@ starts with the given step size @alpha@
 -- and reduces it by a factor of @gamma@ until both the Armijo and
