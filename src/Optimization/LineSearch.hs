@@ -23,8 +23,8 @@ module Optimization.LineSearch
     , backtrackingSearch
       -- * Other line search methods
     , constantSearch
-    , newtonSearch
-    , secantSearch
+    --, newtonSearch
+    --, secantSearch
       -- * Wolfe conditions
       -- Nocedal gives typical values of 10^-4 for @c1@ and 0.9 for
       -- @c2@
