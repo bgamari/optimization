@@ -11,13 +11,12 @@ import Linear
 import Optimization.LineSearch
 import Control.Applicative
 import Data.Traversable
-import Data.Distributive
 import Data.Foldable
 
 -- | Broyden–Fletcher–Goldfarb–Shanno (BFGS) method
 -- @bfgs search df b0 x0@ where @b0@ is the inverse Hessian (the
 -- identity is often a good initial value).
-bfgs :: ( Metric f, Additive f, Distributive f, Foldable f, Traversable f, Applicative f
+bfgs :: ( Metric f, Additive f, Foldable f, Traversable f, Applicative f
         , Fractional a, Epsilon a)
      => LineSearch f a   -- ^ line search method
      -> (f a -> f a)     -- ^ gradient of function
