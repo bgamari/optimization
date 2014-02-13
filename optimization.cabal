@@ -1,6 +1,6 @@
 name:          optimization
 category:      Math
-version:       0.1.3
+version:       0.1.4
 license:       BSD3
 cabal-version: >= 1.10
 license-file:  LICENSE
