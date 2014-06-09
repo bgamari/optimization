@@ -17,7 +17,7 @@ module Optimization.Constrained.Penalty
   , lagrangian
   ) where
 
-import           Numeric.AD.Types
+import           Numeric.AD
 
 import qualified Data.Vector as V
 
@@ -50,7 +50,7 @@ constrainGT h (Opt f gs hs) = Opt f gs (augment (FU $ negate . h) hs)
 
 -- | Minimize the given constrained optimization problem
 -- This is a basic penalty method approach
-minimize :: (Functor f, Num a, Ord a, g ~ V)
+minimize :: (Functor f, RealFrac a, Ord a, g ~ V)
          => (FU f a -> f a -> [f a])   -- ^ Primal minimizer
          -> Opt f a                    -- ^ The optimization problem of interest
          -> a                          -- ^ The penalty increase factor
@@ -59,12 +59,12 @@ minimize :: (Functor f, Num a, Ord a, g ~ V)
          -> [f a]                      -- ^ Optimizing iterates
 minimize minX opt alpha = go
   where go x0 l0 = let l1 = fmap (*alpha) l0
-                       x1 = head $ drop 100 $ minX (FU $ \x -> augLagrangian opt x (fmap auto l1)) x0
+                       x1 = head $ drop 100 $ minX (FU $ \x -> augLagrangian opt x (fmap realToFrac l1)) x0
                    in x1 : go x1 l1
 {-# INLINEABLE minimize #-}
 
 -- | Maximize the given constrained optimization problem
-maximize :: (Functor f, Num a, Ord a, g ~ V)
+maximize :: (Functor f, RealFrac a, Ord a, g ~ V)
          => (FU f a -> f a -> [f a])   -- ^ Primal minimizer
          -> Opt f a                    -- ^ The optimization problem of interest
          -> a                          -- ^ The penalty increase factor
