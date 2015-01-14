@@ -32,7 +32,7 @@ bfgs search df = go
                          -- Sherman-Morrison update of inverse Hessian
                          sy = s `dot` y
                          rho = if nearZero sy then 1000 else 1 / sy
-                         i = kronecker (pure 1)
+                         i = scaled (pure 1)
                          u = i !-! rho *!! outer y s
                          v = i !-! rho *!! outer s y
                          b1 = u !*! b0 !*! v !+! rho *!! outer s s
