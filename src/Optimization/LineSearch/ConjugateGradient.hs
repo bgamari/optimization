@@ -25,6 +25,7 @@ type Beta f a = f a -> f a -> f a -> a
 -- a wide range of eigenvalues). It does this by choosing directions which
 -- satisfy a condition of @A@ orthogonality, ensuring that steps in the
 -- "unstretched" search space are orthogonal.
+
 -- TODO: clarify explanation
 conjGrad :: (Num a, RealFloat a, Additive f, Metric f)
          => LineSearch f a  -- ^ line search method

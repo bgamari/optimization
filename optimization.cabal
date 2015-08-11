@@ -53,7 +53,7 @@ library
     vector              >= 0.10         && < 1.0,
     ad                  >= 3.4          && < 4.3,
     linear              >= 1.16         && < 2.0,
-    semigroupoids       >= 3.0          && < 5.0,
+    semigroupoids       >= 3.0          && < 6.0,
     distributive        >= 0.3          && < 0.5
 
   exposed-modules:
