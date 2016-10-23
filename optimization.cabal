@@ -1,6 +1,6 @@
 name:          optimization
 category:      Math
-version:       0.1.7
+version:       0.1.8
 license:       BSD3
 cabal-version: >= 1.10
 license-file:  LICENSE
@@ -21,9 +21,14 @@ description:
   a number of optimization techniques from the modern optimization
   literature.
   .
-  A deep introduction to optimization can be found in Boyd and Vandenberghe's
-  *Convex Optimization* which available freely online,
-  (<http://web.stanford.edu/~boyd/cvxbook/>).
+  Those seeking a high-level overview of some of these methods are
+  referred to Stephen Wright's excellent tutorial from NIPS 2010
+  <http://videolectures.net/nips2010_wright_oaml/>. A deeper
+  introduction can be found in Boyd and Vandenberghe's *Convex
+  Optimization* which available freely online,
+  <http://web.stanford.edu/~boyd/cvxbook/>. Vandenberghe's lecture
+  at the 2009 Machine Learning Summer School may also be of interest
+  <http://videolectures.net/mlss09uk_vandenberghe_co/>.
 
 build-type:    Simple
 
@@ -49,10 +54,10 @@ library
   build-depends:
     base                >= 4.4          && < 5,
     vector              >= 0.10         && < 1.0,
-    ad                  >= 3.4          && < 4.3,
+    ad                  >= 3.4          && < 4.4,
     linear              >= 1.16         && < 2.0,
     semigroupoids       >= 3.0          && < 6.0,
-    distributive        >= 0.3          && < 0.5
+    distributive        >= 0.3          && < 0.6
 
   exposed-modules:
     Optimization.LineSearch
