@@ -49,10 +49,10 @@ library
   build-depends:
     base                >= 4.4          && < 5,
     vector              >= 0.10         && < 1.0,
-    ad                  >= 3.4          && < 4.3,
+    ad                  >= 3.4          && < 4.4,
     linear              >= 1.16         && < 2.0,
     semigroupoids       >= 3.0          && < 6.0,
-    distributive        >= 0.3          && < 0.5
+    distributive        >= 0.3          && < 0.6
 
   exposed-modules:
     Optimization.LineSearch
