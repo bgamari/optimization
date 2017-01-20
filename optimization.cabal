@@ -11,6 +11,7 @@ homepage:      http://github.com/bgamari/optimization
 bug-reports:   http://github.com/bgamari/optimization/issues
 copyright:     Copyright (C) 2013 Ben Gamari
 synopsis:      Numerical optimization
+tested-with:   GHC==7.8.4, GHC==7.10.3, GHC==8.0.2
 description:
   These are a set of implementations of various numerical optimization
   methods in Haskell. Note that these implementations were originally
