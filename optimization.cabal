@@ -25,8 +25,8 @@ description:
   Those seeking a high-level overview of some of these methods are
   referred to Stephen Wright's excellent tutorial from NIPS 2010
   <http://videolectures.net/nips2010_wright_oaml/>. A deeper
-  introduction can be found in Boyd and Vandenberghe's *Convex
-  Optimization* which available freely online,
+  introduction can be found in Boyd and Vandenberghe's /Convex
+  Optimization/ which available freely online,
   <http://web.stanford.edu/~boyd/cvxbook/>. Vandenberghe's lecture
   at the 2009 Machine Learning Summer School may also be of interest
   <http://videolectures.net/mlss09uk_vandenberghe_co/>.
