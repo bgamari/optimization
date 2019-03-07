@@ -14,7 +14,7 @@ Those seeking a high-level overview of some of these methods are
 referred to Stephen Wright's excellent
 [tutorial](http://videolectures.net/nips2010_wright_oaml/) from NIPS
 2010. A deeper introduction can be found in Boyd and Vandenberghe's
-*Complex Optimization* which available freely online.
+*Convex Optimization* which available freely online.
 
 
 Contact Information
