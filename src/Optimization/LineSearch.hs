@@ -124,7 +124,7 @@ wolfeSearch :: (Num a, Ord a, Metric f)
              -> LineSearch f a
 wolfeSearch gamma alpha c1 c2 f df p x =
     backtrackingSearch gamma alpha wolfe df p x
-  where wolfe a = armijo c1 f df p x a && curvature c2 df x p a
+  where wolfe a = armijo c1 f df x p a && curvature c2 df x p a
 {-# INLINEABLE wolfeSearch #-}
 
 -- | Line search by Newton's method
